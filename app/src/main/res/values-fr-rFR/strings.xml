@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lyscan</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_dashboard">Explorer</string>
+    <string name="appearance">Apparence</string>
+    <string name="textNightThemeDark">Réactive le mode clair</string>
+    <string name="textNightThemeLight">Active le mode foncé</string>
+    <string name="NightThemePref">Mode nuit</string>
+    <string name="home_manga">Pas de manga ou pas de nouveauté</string>
+</resources>

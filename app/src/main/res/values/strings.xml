@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lyscan</string>
+
+    <!-- BOTTOM NAVIGATION VIEW -->
+
+    <string name="title_home" translatable="false">Scan</string>
+    <string name="title_dashboard">Discover</string>
+    <string name="title_profile">Profile</string>
+    <string name="appearance">Appearance</string>
+    <string name="textNightThemeDark">Enable the light theme</string>
+    <string name="textNightThemeLight">Enable the dark them</string>
+    <string name="NightThemePref">Night Mode</string>
+    <string name="home_manga">No manga or no news</string>
+
+</resources>
