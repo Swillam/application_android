@@ -1,5 +1,9 @@
 package fr.application.scanS.data.Type;
 
+import android.content.Context;
+
+import fr.application.scanS.data.DAO.ChapitreDAO;
+
 public class Chapitre {
     private int id;
     private int chapitre_nb;
@@ -51,8 +55,11 @@ public class Chapitre {
         return ifRead;
     }
 
-    public void setIfRead(int ifRead) {
+    public void setIfRead(int ifRead, Context context) {
         this.ifRead = ifRead;
+        ChapitreDAO chapitreDAO = new ChapitreDAO(context);
+        chapitreDAO.open();
+        chapitreDAO.modify(this);
     }
 }
 

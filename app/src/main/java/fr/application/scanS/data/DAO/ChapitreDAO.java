@@ -51,8 +51,8 @@ public class ChapitreDAO extends DAOBase {
         ContentValues value = new ContentValues();
         value.put(CHAPITRE_NB, c.getChapitre_nb());
         value.put(CHAPITRE_NAME, c.getChapitre_name());
-        value.put(ID_MANGA, c.getId_manga());
-        mDb.update(TABLE_NAME, value, KEY,new String[] {String.valueOf(c.getId())});
+        value.put(LU,c.getIfRead());
+        mDb.update(TABLE_NAME, value, KEY+'=' + String.valueOf(c.getId()),null);
     }
 
     public Chapitre select(int id) {

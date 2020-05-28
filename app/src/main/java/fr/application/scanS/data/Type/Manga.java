@@ -1,11 +1,10 @@
 package fr.application.scanS.data.Type;
 
-import android.util.Log;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Manga {
+public class Manga implements Serializable {
     private int id;
     private String name_eng;
     private String name_raw;
@@ -13,6 +12,8 @@ public class Manga {
     private int in_progress;
     private String img_addr;
     private ArrayList<Chapitre> chapitres = null ;
+    private static final long serialVersionUID = 0L;
+
 
     public int getIn_progress() {
         return in_progress;
@@ -90,19 +91,13 @@ public class Manga {
 
     public Chapitre getChapitrelast() {
         Iterator<Chapitre> it = this.chapitres.iterator();
-        Chapitre first = null;
-        int i =0;
         while(it.hasNext()) {
-            if(i==0){
-                first = it.next();
-                i=1;
-            }
             Chapitre c = it.next();
-            if(c.getIfRead() == 1){
+            if(c.getIfRead() == 0){
                 return c;
             }
         }
-        return first;
+        return null;
     }
 }
 

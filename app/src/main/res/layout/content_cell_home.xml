@@ -7,9 +7,7 @@
     android:layout_height="75dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/home_textview_border"
-
-    >
+    android:background="@drawable/home_textview_border">
 
     <ImageView
         android:id="@+id/item_image"

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MangaActivity"
+    tools:context=".ui.chapitre.MangaActivity"
+    android:background="@color/cardview_dark_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -27,16 +28,14 @@
         android:id="@+id/titre_manga_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:gravity="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_chapitre"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="60dp"/>
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

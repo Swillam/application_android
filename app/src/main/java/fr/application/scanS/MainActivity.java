@@ -1,18 +1,18 @@
 package fr.application.scanS;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import fr.application.scanS.data.DAO.DAOBase;
+import fr.application.scanS.ui.dashboard.DashboardFragment;
+import fr.application.scanS.ui.home.HomeFragment;
+import fr.application.scanS.ui.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -26,16 +26,34 @@ public class MainActivity extends AppCompatActivity {
         // end Theme setting
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_profile)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        //I added this if statement to keep the selected fragment when rotating the device
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,
+                    new HomeFragment()).commit();
+        }
+    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+                        case R.id.navigation_dashboard:
+                            selectedFragment = new DashboardFragment();
+                            break;
+                        case R.id.navigation_profile:
+                            selectedFragment = new SettingsFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,
+                            selectedFragment).commit();
+                    return true;
+                }
+            };
     }
 
-}

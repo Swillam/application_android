@@ -37,7 +37,6 @@ public class MangaAdapter extends RecyclerView.Adapter<MangaViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MangaViewHolder holder, int position) {
-        // a faire (fini ?)
         Manga m = this._mangaList.get(position);
         Chapitre c = m.getChapitrelast();
         holder.layoutForManga(m.getName(),c.getChapitre_name(),c.getChapitre_nb(),this._context);

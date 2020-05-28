@@ -1,8 +1,6 @@
 package fr.application.scanS.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,11 @@ import fr.application.scanS.data.DAO.ChapitreDAO;
 import fr.application.scanS.data.DAO.MangaDAO;
 import fr.application.scanS.data.Type.Chapitre;
 import fr.application.scanS.data.Type.Manga;
-import fr.application.scanS.ui.MangaActivity;
+import fr.application.scanS.ui.chapitre.MangaActivity;
 
 public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListener {
     private View v;
+    private ArrayList<Manga> listManga;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,16 +33,14 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // creer le RecyclerView (fait ?)
         RecyclerView recyclerView = view.findViewById(R.id.fragment_home_recycler_view);
-        ArrayList<Manga> listManga = makeMangaList();
+        listManga = makeMangaList();
         view.findViewById(R.id.noManga).setVisibility(View.INVISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MangaAdapter mangaAdapter = new MangaAdapter(getContext(),listManga,this);
         recyclerView.setAdapter(mangaAdapter);
         if (listManga.isEmpty()){
-            Log.i("info","listManga est vide");
             view.findViewById(R.id.noManga).setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
@@ -68,17 +65,14 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
 
     @Override
     public void OnMangaListener(int position) {
-        MangaActivity fragment = new MangaActivity();
+        Fragment fragment = new MangaActivity();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("manga", listManga.get(position));
+        fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .remove(HomeFragment.this)
-                .replace(((ViewGroup)v.getParent()).getId() , fragment, "findThisFragment")
+                .replace(((ViewGroup)v.getParent()).getId() , fragment)
                 .addToBackStack(null)
                 .commit();
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putString("image", "fileName");
-        fragment.setArguments(bundle);
 
-         */
     }
 }
