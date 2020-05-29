@@ -58,7 +58,11 @@ public class Chapitre {
         return ifRead;
     }
 
-    public void setIfRead(int ifRead, Context context) {
+    void setIfRead(int ifRead) {
+        this.ifRead = ifRead;
+    }
+
+    public void setIfReadInDB(int ifRead, Context context) {
         this.ifRead = ifRead;
         ChapitreDAO chapitreDAO = new ChapitreDAO(context);
         chapitreDAO.open();

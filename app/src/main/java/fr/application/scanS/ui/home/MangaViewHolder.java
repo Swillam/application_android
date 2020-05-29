@@ -1,5 +1,6 @@
 package fr.application.scanS.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.text.Normalizer;
+import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -33,7 +35,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private final ImageView _img;
     private MangaAdapter.OnMangaListener onMangaListener;
 
-    public MangaViewHolder(@NonNull View itemView, MangaAdapter.OnMangaListener mangaListener) {
+    MangaViewHolder(@NonNull View itemView, MangaAdapter.OnMangaListener mangaListener) {
         super(itemView);
         this._titreManga = itemView.findViewById(R.id.item_title);
         this._chapitreName = itemView.findViewById(R.id.item_chapter_name);
@@ -41,9 +43,11 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
         this._img = itemView.findViewById(R.id.item_image);
         this.onMangaListener = mangaListener;
 
+        // you go into manga details fragment when you click in the manga item
         itemView.setOnClickListener(this);
     }
-    public void layoutForManga(Manga m, Context context){
+
+    void layoutForManga(Manga m, Context context) {
         Chapitre c = m.getChapitrelast();
         this._titreManga.setText(m.getName());
         this._chapitreName.setText(c.getChapitre_name());
@@ -57,13 +61,13 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     public class AsyncTaskImg extends AsyncTask<Manga,Integer, Uri> {
-        private ImageView img;
         private Context context;
         private String url = "https://lyscanapp-7a130fdb.localhost.run/image.php?image=";
 
 
-        public AsyncTaskImg(Context context) {
+        AsyncTaskImg(Context context) {
             this.context = context;
         }
 
@@ -72,25 +76,23 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
         protected Uri doInBackground(Manga... mangas) {
             try{
                 Uri uri;
-                if(mangas[0].getImg_addr() == null){ // si pas d'image en cache enregistré
+                if (mangas[0].getImg_addr() == null) { // no image in cache saved
                     uri = download(mangas[0]);
                     return uri;
-                }
-                else{
+                } else {
                     uri = Uri.parse(mangas[0].getImg_addr());
-                    File imgFile = new File(uri.getPath());
-                    if (!(imgFile.exists())) { // si defaut de cache
+                    File imgFile = new File(Objects.requireNonNull(uri.getPath()));
+                    if (!(imgFile.exists())) { // if cache failure
                         uri = download(mangas[0]);
                     }
                     return uri;
                 }
-            }
-
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
         }
+
         protected void onPostExecute(Uri result) {
             _img.setImageURI(result);
         }
@@ -126,7 +128,9 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
                 return uri;}
             return null;
         }
-        public String format(String string){
+
+        // remove accent, the escape and lower letters
+        String format(String string) {
             string = Normalizer.normalize(string, Normalizer.Form.NFD);
             string = string.replaceAll("[^\\p{ASCII}]", "");
             string = string.replace(" ","_");

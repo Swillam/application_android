@@ -16,5 +16,7 @@
     <string name="home_manga">No manga or no news</string>
     <string name="unfollow">Unfollow</string>
     <string name="follow">Follow</string>
+    <string name="BdLoad">Save for offline</string>
+    <string name="wait">Please wait</string>
 
 </resources>

@@ -10,17 +10,15 @@ import fr.application.scanS.data.Type.Manga;
 
 
 public class MangaDAO extends DAOBase{
-    public static final String TABLE_NAME = "Manga";
-    public static final String KEY = "id_manga";
-    public static final String NAME_ENG = "name_eng";
-    public static final String NAME_RAW = "name_raw";
-    public static final String DESCRIBE = "description";
-    public static final String IN_PROGRESS = "in_progress";
-    public static final String IMAGE = "img_addr";
-
-
-    public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
-    public static final String TABLE_CREATE =
+    private static final String TABLE_NAME = "Manga";
+    static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+    private static final String KEY = "id_manga";
+    private static final String NAME_ENG = "name_eng";
+    private static final String NAME_RAW = "name_raw";
+    private static final String DESCRIBE = "description";
+    private static final String IN_PROGRESS = "in_progress";
+    private static final String IMAGE = "img_addr";
+    static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     KEY + " INTEGER PRIMARY KEY NOT NULL, " +
                     NAME_ENG + " TEXT, " +
@@ -36,14 +34,12 @@ public class MangaDAO extends DAOBase{
 
     public void add(Manga m) {
         ContentValues value = new ContentValues();
-        value.put(KEY,m.getId());
         value.put(NAME_ENG, m.getName_eng());
         value.put(NAME_RAW, m.getName_raw());
         value.put(DESCRIBE, m.getDescription());
         value.put(IN_PROGRESS, m.getIn_progress());
         value.put(IMAGE, m.getImg_addr());
         mDb.insert(TABLE_NAME, null, value);
-
     }
 
     public void delete(int id) {
@@ -57,7 +53,7 @@ public class MangaDAO extends DAOBase{
         value.put(DESCRIBE, m.getDescription());
         value.put(IN_PROGRESS, m.getIn_progress());
         value.put(IMAGE, m.getImg_addr());
-        mDb.update(TABLE_NAME, value, KEY + " = ?",new String[] {String.valueOf(m.getId())});
+        mDb.update(TABLE_NAME, value, KEY + " = ?", new String[]{String.valueOf(m.getId(this))});
     }
 
     public Manga select(int id) {
@@ -74,7 +70,7 @@ public class MangaDAO extends DAOBase{
 
     public ArrayList<Manga> selectAll(){
         Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME , null);
-        ArrayList<Manga> ListManga = new ArrayList<Manga>();
+        ArrayList<Manga> ListManga = new ArrayList<>();
         for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
             int id = c.getInt(0);
             String name_eng = c.getString(1);
@@ -87,6 +83,17 @@ public class MangaDAO extends DAOBase{
         c.close();
         return  ListManga;
     }
+
+    public int getIdManga(String name_raw) {
+        Cursor c = mDb.rawQuery("select " + KEY + " from " + TABLE_NAME + " where " + NAME_RAW + " = ?", new String[]{name_raw});
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            return c.getInt(0);
+        }
+        c.close();
+        return -1;
+    }
+
 }
 
 

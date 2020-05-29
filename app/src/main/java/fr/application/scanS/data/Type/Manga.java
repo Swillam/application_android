@@ -3,6 +3,8 @@ package fr.application.scanS.data.Type;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import fr.application.scanS.data.DAO.MangaDAO;
+
 public class Manga implements Serializable {
     private int id;
     private String name_eng;
@@ -31,7 +33,8 @@ public class Manga implements Serializable {
         this.img_addr = img_addr;
     }
 
-    public int getId() {
+    public int getId(MangaDAO mangaDAO) {
+        id = mangaDAO.getIdManga(name_raw);
         return id;
     }
 
@@ -95,6 +98,12 @@ public class Manga implements Serializable {
             }
         }
         return null;
+    }
+
+    public void setNoRead() {
+        for (Chapitre c : this.chapitres) {
+            c.setIfRead(0);
+        }
     }
 }
 

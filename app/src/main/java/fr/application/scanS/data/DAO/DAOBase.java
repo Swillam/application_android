@@ -4,20 +4,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 public abstract class DAOBase {
-    protected final static int VERSION = 1;
-    protected final static String NOM = "database.db";
+    private final static int VERSION = 1;
+    private final static String NOM = "database.db";
 
-    protected SQLiteDatabase mDb = null;
-    protected DatabaseHandler mHandler = null;
+    SQLiteDatabase mDb = null;
+    private DatabaseHandler mHandler;
 
-    public DAOBase(Context pContext) {
+    DAOBase(Context pContext) {
         this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
     }
 
-    public SQLiteDatabase open() {
-        // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
+    public void open() {
         mDb = mHandler.getWritableDatabase();
-        return mDb;
     }
 
     public void close() {
@@ -27,5 +25,6 @@ public abstract class DAOBase {
     public SQLiteDatabase getDb() {
         return mDb;
     }
+
 }
 

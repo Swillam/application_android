@@ -1,6 +1,9 @@
 package fr.application.scanS.ui.chapitre;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +18,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Objects;
 
 import fr.application.scanS.R;
+import fr.application.scanS.data.DAO.ChapitreDAO;
 import fr.application.scanS.data.DAO.MangaDAO;
-import fr.application.scanS.data.Type.Chapitre;
 import fr.application.scanS.data.Type.Manga;
 
 public class ChapterFragment extends Fragment {
 
     private Manga manga;
+    private Button followBt;
+    private RecyclerView recyclerView;
+    private ProgressDialog pd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,31 +47,90 @@ public class ChapterFragment extends Fragment {
         TextView titre = root.findViewById(R.id.titre_manga_textview);
         titre.setText(manga.getName());
         ImageView img = root.findViewById(R.id.manga_image);
-        Button button = root.findViewById(R.id.bt_follow);
+        followBt = root.findViewById(R.id.bt_follow);
+
+        // if the manga is in the db show unfollow button
         MangaDAO mangaDAO = new MangaDAO(getContext());
         mangaDAO.open();
-        if(mangaDAO.select(manga.getId()) != null){
-            button.setBackgroundColor(getResources().getColor(R.color.unfollow));
-            button.setText(getResources().getText(R.string.unfollow));
+        if (mangaDAO.select(manga.getId(mangaDAO)) != null) {
+            followBt.setBackgroundColor(getResources().getColor(R.color.unfollow));
+            followBt.setText(getResources().getText(R.string.unfollow));
         }
+        mangaDAO.close();
+
         if(manga.getImg_addr() != null){
             Uri uri = Uri.parse(manga.getImg_addr());
-            File imgFile = new File(uri.getPath());
+            File imgFile = new File(Objects.requireNonNull(uri.getPath()));
             if (imgFile.exists()) { // si pas de defaut de cache
                 img.setImageURI(Uri.parse(manga.getImg_addr()));
             }
         }
-        mangaDAO.close();
+
+        followBt.setOnClickListener(new View.OnClickListener() { //follow button
+            public void onClick(View v) {
+                MangaDAO mangaDAO1 = new MangaDAO(getContext());
+                mangaDAO1.open();
+
+                // add the manga to the db with its chapter for followed situation
+                if (followBt.getText().toString().equals(getResources().getString(R.string.follow))) {
+                    mangaDAO1.add(manga);
+                    AsyncTaskDB asyncTaskDB = new AsyncTaskDB(manga.getId(mangaDAO1));
+                    asyncTaskDB.execute(new ChapitreDAO(getContext()));
+                    followBt.setBackgroundColor(getResources().getColor(R.color.unfollow));
+                    followBt.setText(getResources().getText(R.string.unfollow));
+                } else { // delete on cascade for unfollow situation
+                    manga.setNoRead();
+                    Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
+                    mangaDAO1.delete(manga.getId(mangaDAO1));
+                    followBt.setBackgroundColor(getResources().getColor(R.color.follow));
+                    followBt.setText(getResources().getText(R.string.follow));
+                }
+                mangaDAO1.close();
+            }
+        });
         return root;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_chapitre);
-        ArrayList<Chapitre> listChapitre = manga.getChapitres();
+        recyclerView = view.findViewById(R.id.recycler_view_chapitre);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ChapitreAdapter chapitreAdapter = new ChapitreAdapter(getContext(),listChapitre);
+        ChapitreAdapter chapitreAdapter = new ChapitreAdapter(getContext(), manga.getChapitres(), followBt);
         recyclerView.setAdapter(chapitreAdapter);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class AsyncTaskDB extends AsyncTask<ChapitreDAO, Void, Void> {
+        private int id_manga;
+
+        AsyncTaskDB(int id_manga) {
+            this.id_manga = id_manga;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = new ProgressDialog(getContext());
+            pd.setTitle(getResources().getString(R.string.BdLoad));
+            pd.setMessage(getResources().getString(R.string.wait));
+            pd.setCancelable(false);
+            pd.setIndeterminate(true);
+            pd.show();
+        }
+
+
+        @Override
+        protected Void doInBackground(ChapitreDAO... chapitreDAOS) {
+            chapitreDAOS[0].open();
+            chapitreDAOS[0].add(manga.getChapitres(), id_manga);
+            chapitreDAOS[0].close();
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            if (pd != null) {
+                pd.dismiss();
+            }
+        }
     }
 }

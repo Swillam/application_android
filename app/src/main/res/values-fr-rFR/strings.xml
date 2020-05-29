@@ -10,5 +10,7 @@
     <string name="home_manga">Pas de manga ou pas de nouveauté</string>
     <string name="unfollow">Ne plus suivre</string>
     <string name="follow">Suivre</string>
+    <string name="BdLoad">Sauvegarde hors-ligne</string>
+    <string name="wait">Veuillez patienter</string>
 
 </resources>

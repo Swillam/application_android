@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 import fr.application.scanS.R;
 import fr.application.scanS.data.DAO.ChapitreDAO;
 import fr.application.scanS.data.DAO.MangaDAO;
-import fr.application.scanS.data.Type.Chapitre;
 import fr.application.scanS.data.Type.Manga;
 import fr.application.scanS.ui.chapitre.ChapterFragment;
 
@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.fragment_home_recycler_view);
         listManga = makeMangaList();
@@ -41,6 +41,8 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MangaAdapter mangaAdapter = new MangaAdapter(getContext(),listManga,this);
         recyclerView.setAdapter(mangaAdapter);
+
+        // if no manga show "no manga"
         if (listManga.isEmpty()){
             view.findViewById(R.id.noManga).setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -48,23 +50,23 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
 
     }
 
-    public ArrayList<Manga> makeMangaList(){
+    private ArrayList<Manga> makeMangaList() {
         MangaDAO mangaDAO = new MangaDAO(getContext());
         mangaDAO.open();
         ArrayList<Manga> listManga = mangaDAO.selectAll();
-        mangaDAO.close();
 
+        // ajouter les chapitres dans le manga
         ChapitreDAO chapitreDAO = new ChapitreDAO(getContext());
         chapitreDAO.open();
         Iterator<Manga> it = listManga.iterator();
         while (it.hasNext()){
             Manga m = it.next();
-            int id = m.getId();
-            ArrayList<Chapitre> chapitres = chapitreDAO.getChapitres(id);
-            m.setChapitres(chapitres);
+            m.setChapitres(chapitreDAO.getMangaChapitres(m.getId(mangaDAO)));
             if(m.getChapitrelast()==null){it.remove();} // si pas de nouveau chapitre à lire retirer le manga
         }
         chapitreDAO.close();
+        mangaDAO.close();
+
         return listManga;
     }
 
@@ -74,7 +76,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
         Bundle bundle = new Bundle();
         bundle.putSerializable("manga", listManga.get(position));
         fragment.setArguments(bundle);
-        getActivity().getSupportFragmentManager().beginTransaction()
+        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)// transition entre home et manga
                 .replace(((ViewGroup)v.getParent()).getId() , fragment)
                 .addToBackStack(null)

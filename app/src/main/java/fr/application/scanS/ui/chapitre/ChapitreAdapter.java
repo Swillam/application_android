@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -20,10 +21,13 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
 
     private Context _context;
     private ArrayList<Chapitre> _listChapitre;
+    private final Button _buttonFollow;
 
-    public ChapitreAdapter(Context context, ArrayList<Chapitre> listChapitre) {
+
+    ChapitreAdapter(Context context, ArrayList<Chapitre> listChapitre, Button buttonFollow) {
         this._context = context;
         this._listChapitre = listChapitre;
+        this._buttonFollow = buttonFollow;
         notifyDataSetChanged();
     }
     @NonNull
@@ -48,12 +52,13 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
         }
         return itemCount;
     }
-    public class ChapitreViewHolder extends RecyclerView.ViewHolder {
+
+    class ChapitreViewHolder extends RecyclerView.ViewHolder {
         private final TextView _tvTitre;
         private final TextView _tvNumero;
         private final CheckBox _read;
 
-        public ChapitreViewHolder(View cell) {
+        ChapitreViewHolder(View cell) {
             super(cell);
             this._tvTitre = cell.findViewById(R.id.item_chapter_name_manga);
             this._tvNumero = cell.findViewById(R.id.item_chapter_nb_manga);
@@ -61,31 +66,34 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
             this._read.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { // if read checkbox
                     int adapterPosition = getAdapterPosition();
                     Chapitre c = _listChapitre.get(adapterPosition);
                     if (_read.isChecked()) {
-                        c.setIfRead(1,_context);
+                        c.setIfReadInDB(1, _context);
                         _read.setChecked(true);
                     }
                     else {
-                        c.setIfRead(0,_context);
+                        c.setIfReadInDB(0, _context);
                         _read.setChecked(false);
+                    }
+                    // follow le manga if not followed
+                    if (_buttonFollow.getText().toString().equals(_context.getResources().getString(R.string.follow))) {
+                        _buttonFollow.performClick();
                     }
                 }
             });
 
          }
 
-    public void LayoutForChapitre(String titre,String numero,int read) {
-        this._tvTitre.setText(titre);
-        this._tvNumero.setText(numero);
-        if(read==1){
-            this._read.setChecked(true);
-        }
-        else{
-            this._read.setChecked(false);
+        void LayoutForChapitre(String titre, String numero, int read) {
+            this._tvTitre.setText(titre);
+            this._tvNumero.setText(numero);
+            if (read == 1) {
+                this._read.setChecked(true);
+            } else {
+                this._read.setChecked(false);
+            }
         }
     }
-}
 }
