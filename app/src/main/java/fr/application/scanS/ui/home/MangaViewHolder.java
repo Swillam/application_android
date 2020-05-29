@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +60,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public class AsyncTaskImg extends AsyncTask<Manga,Integer, Uri> {
         private ImageView img;
         private Context context;
-        private String url = "https://lyscanapp-6638bb1c.localhost.run/image.php?image=";
+        private String url = "https://lyscanapp-7a130fdb.localhost.run/image.php?image=";
 
 
         public AsyncTaskImg(Context context) {
@@ -100,8 +99,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
             // download img
             String name = format(m.getName_raw());
             String imgUrl = this.url + name+".jpg";
-            Log.i("titre",imgUrl);
-            URL url = new URL(imgUrl.toLowerCase());
+            URL url = new URL(imgUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();

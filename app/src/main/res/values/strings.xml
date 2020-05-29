@@ -6,10 +6,15 @@
     <string name="title_home" translatable="false">Scan</string>
     <string name="title_dashboard">Discover</string>
     <string name="title_setting">Setting</string>
+
+    <!-- END BOTTOM NAVIGATION VIEW -->
+
     <string name="appearance">Appearance</string>
     <string name="textNightThemeDark">Enable the light theme</string>
     <string name="textNightThemeLight">Enable the dark them</string>
     <string name="NightThemePref">Night Mode</string>
     <string name="home_manga">No manga or no news</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="follow">Follow</string>
 
 </resources>

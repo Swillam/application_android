@@ -19,7 +19,7 @@ import fr.application.scanS.data.DAO.ChapitreDAO;
 import fr.application.scanS.data.DAO.MangaDAO;
 import fr.application.scanS.data.Type.Chapitre;
 import fr.application.scanS.data.Type.Manga;
-import fr.application.scanS.ui.chapitre.MangaActivity;
+import fr.application.scanS.ui.chapitre.ChapterFragment;
 
 public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListener {
     private View v;
@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
         MangaDAO mangaDAO = new MangaDAO(getContext());
         mangaDAO.open();
         ArrayList<Manga> listManga = mangaDAO.selectAll();
+        mangaDAO.close();
+
         ChapitreDAO chapitreDAO = new ChapitreDAO(getContext());
         chapitreDAO.open();
         Iterator<Manga> it = listManga.iterator();
@@ -62,12 +64,13 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
             m.setChapitres(chapitres);
             if(m.getChapitrelast()==null){it.remove();} // si pas de nouveau chapitre à lire retirer le manga
         }
+        chapitreDAO.close();
         return listManga;
     }
 
     @Override
     public void OnMangaListener(int position) {
-        Fragment fragment = new MangaActivity();
+        Fragment fragment = new ChapterFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("manga", listManga.get(position));
         fragment.setArguments(bundle);

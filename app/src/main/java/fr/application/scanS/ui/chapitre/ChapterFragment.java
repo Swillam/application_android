@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,10 +18,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import fr.application.scanS.R;
+import fr.application.scanS.data.DAO.MangaDAO;
 import fr.application.scanS.data.Type.Chapitre;
 import fr.application.scanS.data.Type.Manga;
 
-public class MangaActivity extends Fragment {
+public class ChapterFragment extends Fragment {
 
     private Manga manga;
 
@@ -35,11 +37,17 @@ public class MangaActivity extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.manga_activity, container, false);
+        View root = inflater.inflate(R.layout.fragment_chapter, container, false);
         TextView titre = root.findViewById(R.id.titre_manga_textview);
         titre.setText(manga.getName());
         ImageView img = root.findViewById(R.id.manga_image);
-
+        Button button = root.findViewById(R.id.bt_follow);
+        MangaDAO mangaDAO = new MangaDAO(getContext());
+        mangaDAO.open();
+        if(mangaDAO.select(manga.getId()) != null){
+            button.setBackgroundColor(getResources().getColor(R.color.unfollow));
+            button.setText(getResources().getText(R.string.unfollow));
+        }
         if(manga.getImg_addr() != null){
             Uri uri = Uri.parse(manga.getImg_addr());
             File imgFile = new File(uri.getPath());
@@ -47,6 +55,7 @@ public class MangaActivity extends Fragment {
                 img.setImageURI(Uri.parse(manga.getImg_addr()));
             }
         }
+        mangaDAO.close();
         return root;
     }
 

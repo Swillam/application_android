@@ -8,4 +8,7 @@
     <string name="textNightThemeLight">Active le mode foncé</string>
     <string name="NightThemePref">Mode nuit</string>
     <string name="home_manga">Pas de manga ou pas de nouveauté</string>
+    <string name="unfollow">Ne plus suivre</string>
+    <string name="follow">Suivre</string>
+
 </resources>

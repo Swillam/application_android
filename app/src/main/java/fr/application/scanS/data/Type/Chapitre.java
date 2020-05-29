@@ -63,6 +63,7 @@ public class Chapitre {
         ChapitreDAO chapitreDAO = new ChapitreDAO(context);
         chapitreDAO.open();
         chapitreDAO.modify(this);
+        chapitreDAO.close();
     }
 }
 
