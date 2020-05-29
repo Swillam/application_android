@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/manga_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".ui.chapitre.ChapterFragment"
         android:background="?attr/ColorBackground"
@@ -21,41 +21,66 @@
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
+            android:contentDescription="@string/img"
             app:srcCompat="@android:drawable/picture_frame" />
-        <Button
-            android:id="@+id/bt_follow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20dp"
-            android:padding="10dp"
-            android:textColor="#FFFF"
-            android:background="@color/follow"
-            android:text="@string/follow"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/titre_manga_textview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:background="?attr/colorPrimary"
-                android:textColor="#FFFFFF"
-                android:gravity="center"/>
+                android:id="@+id/onGoing"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_chapitre"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_margin="10dp"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+
+            <Button
+                android:id="@+id/bt_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:background="@color/follow"
+                android:padding="10dp"
+                android:text="@string/follow"
+                android:textColor="#FFFF" />
 
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/titre_manga_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/manga_description"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:scrollbars="vertical" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_chapitre"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_margin="10dp" />
 
     </LinearLayout>
 

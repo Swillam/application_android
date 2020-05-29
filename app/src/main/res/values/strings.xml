@@ -18,5 +18,9 @@
     <string name="follow">Follow</string>
     <string name="BdLoad">Save for offline</string>
     <string name="wait">Please wait</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="finished">Finished</string>
+    <string name="img" translatable="false">Image manga</string>
+    <string name="account_image">Account Image</string>
 
 </resources>

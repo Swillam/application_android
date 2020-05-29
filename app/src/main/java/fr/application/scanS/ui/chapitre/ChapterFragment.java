@@ -58,12 +58,20 @@ public class ChapterFragment extends Fragment {
         }
         mangaDAO.close();
 
+        // get img
         if(manga.getImg_addr() != null){
             Uri uri = Uri.parse(manga.getImg_addr());
             File imgFile = new File(Objects.requireNonNull(uri.getPath()));
-            if (imgFile.exists()) { // si pas de defaut de cache
+            if (imgFile.exists()) { // if no cache failure
                 img.setImageURI(Uri.parse(manga.getImg_addr()));
             }
+
+            TextView ongoing = root.findViewById(R.id.onGoing);
+            String ongoingS = manga.getIn_progress() == 1 ? getString(R.string.ongoing) : getString(R.string.finished);
+            ongoing.setText(ongoingS);
+
+            TextView description = root.findViewById(R.id.manga_description);
+            description.setText(manga.getDescription());
         }
 
         followBt.setOnClickListener(new View.OnClickListener() { //follow button

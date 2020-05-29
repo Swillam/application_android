@@ -12,5 +12,8 @@
     <string name="follow">Suivre</string>
     <string name="BdLoad">Sauvegarde hors-ligne</string>
     <string name="wait">Veuillez patienter</string>
+    <string name="ongoing">En cours</string>
+    <string name="finished">Terminé</string>
+    <string name="account_image">Image profile</string>
 
 </resources>
