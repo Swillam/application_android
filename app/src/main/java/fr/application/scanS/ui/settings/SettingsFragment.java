@@ -19,7 +19,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final Button button = (Button)root.findViewById(R.id.bt_setting);
+        final Button button = root.findViewById(R.id.bt_setting);
         button.setText("Gestion du compte");
         return root;
     }

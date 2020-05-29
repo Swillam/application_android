@@ -2,7 +2,6 @@ package fr.application.scanS.data.Type;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Manga implements Serializable {
     private int id;
@@ -90,10 +89,8 @@ public class Manga implements Serializable {
     }
 
     public Chapitre getChapitrelast() {
-        Iterator<Chapitre> it = this.chapitres.iterator();
-        while(it.hasNext()) {
-            Chapitre c = it.next();
-            if(c.getIfRead() == 0){
+        for (Chapitre c : this.chapitres) {
+            if (c.getIfRead() == 0) {
                 return c;
             }
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Lyscan</string>
-    <string name="title_profile">Profil</string>
+    <string name="title_setting">Réglage</string>
     <string name="title_dashboard">Explorer</string>
     <string name="appearance">Apparence</string>
     <string name="textNightThemeDark">Réactive le mode clair</string>

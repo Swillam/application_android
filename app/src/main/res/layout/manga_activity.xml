@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/manga_view"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.chapitre.MangaActivity"
-    android:background="@color/cardview_dark_background"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/manga_image"
-        android:layout_width="150dp"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:layout_weight="4"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@android:drawable/picture_frame" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/manga_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ui.chapitre.MangaActivity"
+        android:background="?attr/ColorBackground"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <TextView
-        android:id="@+id/titre_manga_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"/>
+        <ImageView
+            android:id="@+id/manga_image"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@android:drawable/picture_frame" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_chapitre"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titre_manga_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:background="?attr/colorPrimary"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_chapitre"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>

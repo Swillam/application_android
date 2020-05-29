@@ -31,8 +31,7 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
     public ChapitreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View cell = LayoutInflater.from(this._context).inflate(R.layout.content_cell_chapter,
                 parent , false);
-        ChapitreViewHolder chapitreViewHolder = new ChapitreViewHolder(cell);
-        return chapitreViewHolder;
+        return new ChapitreViewHolder(cell);
     }
 
     @Override
@@ -80,9 +79,6 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
 
     public void LayoutForChapitre(String titre,String numero,int read) {
         this._tvTitre.setText(titre);
-        if(titre.equals("")){
-            this._tvTitre.setText(numero);
-        }
         this._tvNumero.setText(numero);
         if(read==1){
             this._read.setChecked(true);

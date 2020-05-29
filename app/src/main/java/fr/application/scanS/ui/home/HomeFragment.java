@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +60,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
             int id = m.getId();
             ArrayList<Chapitre> chapitres = chapitreDAO.getChapitres(id);
             m.setChapitres(chapitres);
+            if(m.getChapitrelast()==null){it.remove();} // si pas de nouveau chapitre à lire retirer le manga
         }
         return listManga;
     }
@@ -70,6 +72,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
         bundle.putSerializable("manga", listManga.get(position));
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)// transition entre home et manga
                 .replace(((ViewGroup)v.getParent()).getId() , fragment)
                 .addToBackStack(null)
                 .commit();

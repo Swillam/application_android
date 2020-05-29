@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="fr.application.scanS.ui.settings.SettingsFragment"
-        android:label="@string/title_profile"
+        android:label="@string/title_setting"
         tools:layout="@layout/fragment_settings" />
 </navigation>

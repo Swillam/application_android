@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="100dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:background="@drawable/home_textview_border">
 
     <ImageView
         android:id="@+id/item_image"
-        android:layout_width="50dp"
+        android:layout_width="75dp"
         android:layout_height="match_parent"
         android:background="@drawable/home_textview_border"
         app:srcCompat="@android:drawable/picture_frame" />

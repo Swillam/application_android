@@ -36,6 +36,9 @@ public class Chapitre {
     }
 
     public String getChapitre_name() {
+        if(chapitre_name.equals("")){
+            return String.valueOf(chapitre_nb);
+        }
         return chapitre_name;
     }
 
