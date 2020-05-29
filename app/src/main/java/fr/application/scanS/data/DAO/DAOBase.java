@@ -16,6 +16,7 @@ public abstract class DAOBase {
 
     public void open() {
         mDb = mHandler.getWritableDatabase();
+        mDb.execSQL("PRAGMA foreign_keys=ON"); // activate foreign keys
     }
 
     public void close() {
