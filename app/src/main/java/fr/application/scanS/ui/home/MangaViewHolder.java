@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     private final TextView _titreManga, _chapitreName, _chapitreNb;
     private final ImageView _img;
+    private final ProgressBar _loadimg;
     private MangaAdapter.OnMangaListener onMangaListener;
 
     MangaViewHolder(@NonNull View itemView, MangaAdapter.OnMangaListener mangaListener) {
@@ -41,6 +43,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
         this._chapitreName = itemView.findViewById(R.id.item_chapter_name);
         this._chapitreNb = itemView.findViewById(R.id.item_chapter_nb);
         this._img = itemView.findViewById(R.id.item_image);
+        this._loadimg = itemView.findViewById(R.id.load_image);
         this.onMangaListener = mangaListener;
 
         // you go into manga details fragment when you click in the manga item
@@ -62,7 +65,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
 
     @SuppressLint("StaticFieldLeak")
-    public class AsyncTaskImg extends AsyncTask<Manga,Integer, Uri> {
+    public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
         private Context context;
         private String url = "https://lyscanapp-a8898b0f.localhost.run/image.php?image=";
 
@@ -74,19 +77,18 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
         @Override
         protected Uri doInBackground(Manga... mangas) {
-            try{
+            try {
                 Uri uri;
                 if (mangas[0].getImg_addr() == null) { // no image in cache saved
                     uri = download(mangas[0]);
-                    return uri;
                 } else {
                     uri = Uri.parse(mangas[0].getImg_addr());
                     File imgFile = new File(Objects.requireNonNull(uri.getPath()));
                     if (!(imgFile.exists())) { // if cache failure
                         uri = download(mangas[0]);
                     }
-                    return uri;
                 }
+                return uri;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -94,13 +96,14 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
         }
 
         protected void onPostExecute(Uri result) {
+            _loadimg.setVisibility(View.INVISIBLE);
             _img.setImageURI(result);
         }
 
         private Uri download(Manga m) throws IOException {
             // download img
             String name = format(m.getName_raw());
-            String imgUrl = this.url + name+".jpg";
+            String imgUrl = this.url + name + ".jpg";
             URL url = new URL(imgUrl);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setDoInput(true);
@@ -109,24 +112,22 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
             // save img
-            if(bitmap != null ){
-                File cache = context.getCacheDir();
-                OutputStream fOut;
-                File img = new File(cache, name+".jpg");
-                fOut = new FileOutputStream(img);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
-                fOut.flush();
-                fOut.close();
+            File cache = context.getCacheDir();
+            OutputStream fOut;
+            File img = new File(cache, name + ".jpg");
+            fOut = new FileOutputStream(img);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
+            fOut.flush();
+            fOut.close();
 
-                // save the uri to the db
-                Uri uri = Uri.fromFile(img);
-                m.setImg_addr(uri.toString());
-                MangaDAO mangaDAO = new MangaDAO(context);
-                mangaDAO.open();
-                mangaDAO.modify(m);
-                mangaDAO.close();
-                return uri;}
-            return null;
+            // save the uri to the db
+            Uri uri = Uri.fromFile(img);
+            m.setImg_addr(uri.toString());
+            MangaDAO mangaDAO = new MangaDAO(context);
+            mangaDAO.open();
+            mangaDAO.modify(m);
+            mangaDAO.close();
+            return uri;
         }
 
         // remove accent, the escape and lower letters

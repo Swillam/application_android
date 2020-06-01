@@ -2,16 +2,19 @@ package fr.application.scanS.data.Type;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 import fr.application.scanS.data.DAO.ChapitreDAO;
 
-public class Chapitre {
+public class Chapitre implements Serializable {
     private int id;
     private int chapitre_nb;
     private String chapitre_name;
     private int ifRead;
     private int id_manga;
+    private static final long serialVersionUID = 0L;
 
-    public Chapitre(int id, int chapitre_nb, String chapitre_name,int ifRead ,int id_manga) {
+    public Chapitre(int id, int chapitre_nb, String chapitre_name, int ifRead, int id_manga) {
         this.id = id;
         this.chapitre_nb = chapitre_nb;
         this.chapitre_name = chapitre_name;
