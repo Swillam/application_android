@@ -11,7 +11,7 @@
 
     <string name="appearance">Appearance</string>
     <string name="textNightThemeDark">Enable the light theme</string>
-    <string name="textNightThemeLight">Enable the dark them</string>
+    <string name="textNightThemeLight">Enable the dark theme</string>
     <string name="NightThemePref">Night Mode</string>
     <string name="home_manga">No manga or no news</string>
     <string name="unfollow">Unfollow</string>

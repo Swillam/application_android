@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
-import 	androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import fr.application.scanS.MainActivity;
@@ -21,7 +20,6 @@ public class MySettingsFragment extends PreferenceFragmentCompat
         preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference _preference) {
-                boolean test =  PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("switchNightPref", false);
                 Intent i = new Intent(getContext(), MainActivity.class);
                 getActivity().finish();
                 startActivity(i);
@@ -29,4 +27,6 @@ public class MySettingsFragment extends PreferenceFragmentCompat
             }
         });
     }
+
+
 }

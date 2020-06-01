@@ -64,7 +64,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @SuppressLint("StaticFieldLeak")
     public class AsyncTaskImg extends AsyncTask<Manga,Integer, Uri> {
         private Context context;
-        private String url = "https://lyscanapp-7a130fdb.localhost.run/image.php?image=";
+        private String url = "https://lyscanapp-a8898b0f.localhost.run/image.php?image=";
 
 
         AsyncTaskImg(Context context) {

@@ -30,7 +30,7 @@ public class ChapterFragment extends Fragment {
     private Manga manga;
     private Button followBt;
     private RecyclerView recyclerView;
-    private ProgressDialog pd;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,12 +118,12 @@ public class ChapterFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            pd = new ProgressDialog(getContext());
-            pd.setTitle(getResources().getString(R.string.BdLoad));
-            pd.setMessage(getResources().getString(R.string.wait));
-            pd.setCancelable(false);
-            pd.setIndeterminate(true);
-            pd.show();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle(getResources().getString(R.string.BdLoad));
+            progressDialog.setMessage(getResources().getString(R.string.wait));
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
         }
 
 
@@ -136,8 +136,8 @@ public class ChapterFragment extends Fragment {
         }
 
         protected void onPostExecute(Void result) {
-            if (pd != null) {
-                pd.dismiss();
+            if (progressDialog != null) {
+                progressDialog.dismiss();
             }
         }
     }
