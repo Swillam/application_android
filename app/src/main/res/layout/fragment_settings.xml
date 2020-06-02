@@ -9,13 +9,14 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
             android:contentDescription="@string/account_image"
             android:src="@drawable/ic_account_circle_black_24dp" />
 
-        <!-- Transparent background line 28 -->
+    <!-- Transparent background line 23 -->
 
         <Button
             android:id="@+id/bt_setting"
@@ -23,13 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#FFFFFFFF"
-            android:layout_weight="0"
+            android:textColor="?attr/ColorText"
             android:gravity="center" />
 
     <fragment android:name="fr.application.scanS.ui.settings.MySettingsFragment"
         android:id="@+id/preferenceFrag"
-        android:layout_weight="1"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 

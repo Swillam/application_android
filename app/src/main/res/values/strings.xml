@@ -22,5 +22,6 @@
     <string name="finished">Finished</string>
     <string name="img" translatable="false">Image manga</string>
     <string name="account_image">Account Image</string>
+    <string name="error_img">Error image</string>
 
 </resources>

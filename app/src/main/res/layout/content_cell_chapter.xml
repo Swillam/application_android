@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="@drawable/home_textview_border">
+    android:background="@drawable/item_border">
+
     <TextView
         android:id="@+id/item_chapter_nb_manga"
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="?attr/ColorText"
-        android:background="@drawable/home_textview_border"/>
+        android:background="@drawable/item_border" />
 
     <TextView
         android:id="@+id/item_chapter_name_manga"

@@ -15,5 +15,6 @@
     <string name="ongoing">En cours</string>
     <string name="finished">Terminé</string>
     <string name="account_image">Image profile</string>
+    <string name="error_img">"Erreur image "</string>
 
 </resources>

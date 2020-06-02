@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="fr.application.scanS.ui.dashboard.DashboardFragment"
+        android:name="fr.application.scanS.ui.explorer.ExplorerFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_explorer" />
 
     <fragment
         android:id="@+id/navigation_profile"

@@ -10,7 +10,7 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import fr.application.scanS.ui.dashboard.DashboardFragment;
+import fr.application.scanS.ui.explorer.ExplorerFragment;
 import fr.application.scanS.ui.home.HomeFragment;
 import fr.application.scanS.ui.settings.SettingsFragment;
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment = new HomeFragment();
                         break;
                     case R.id.navigation_dashboard:
-                        selectedFragment = new DashboardFragment();
+                        selectedFragment = new ExplorerFragment();
                         break;
                     case R.id.navigation_profile:
                         selectedFragment = new SettingsFragment();

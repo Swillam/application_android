@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,7 +98,13 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
         protected void onPostExecute(Uri result) {
             _loadimg.setVisibility(View.INVISIBLE);
-            _img.setImageURI(result);
+            if (result == null) {
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, context.getString(R.string.error_img) + "manga " + _titreManga.getText().toString(), duration);
+                toast.show();
+            } else {
+                _img.setImageURI(result);
+            }
         }
 
         private Uri download(Manga m) throws IOException {

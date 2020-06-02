@@ -1,4 +1,4 @@
-package fr.application.scanS.ui.dashboard;
+package fr.application.scanS.ui.explorer;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -5,19 +5,30 @@
         <item name="ColorText">#000000</item>
         <item name="metaTextColor">#606060</item>
         <item name="ColorBackground">#ffffff</item>
+        <item name="android:windowBackground">#FFFFFF</item>
     </style>
 
 
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/design_default_color_primary_dark</item>
+        <item name="colorPrimary">#039BE5</item>
         <item name="ColorText">#ffffff</item>
         <item name="metaTextColor">#aeaeae</item>
-        <item name="ColorBackground">#070E2E</item>
+        <item name="ColorBackground">@color/appLoadBackground</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:windowBackground">#202020</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/app_loading</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:colorPrimaryDark">@android:color/transparent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
     </style>
+
+    <style name="PreferenceThemeOverlay.v14">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+    </style>
+
 </resources>
