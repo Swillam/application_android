@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Objects;
 
 import fr.application.scanS.R;
 import fr.application.scanS.data.DAO.ChapitreDAO;
@@ -34,6 +33,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home, container, false);
+        getActivity().setTitle(R.string.title_home);
         return v;
     }
 
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements MangaAdapter.OnMangaListen
         Bundle bundle = new Bundle();
         bundle.putSerializable("manga", listManga.get(position));
         fragment.setArguments(bundle);
-        Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+        getActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)// transition between home and manga
                 .replace(((ViewGroup) v.getParent()).getId(), fragment)
                 .addToBackStack(null)

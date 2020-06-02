@@ -4,7 +4,7 @@
     <!-- BOTTOM NAVIGATION VIEW -->
 
     <string name="title_home" translatable="false">Scan</string>
-    <string name="title_dashboard">Discover</string>
+    <string name="title_explorer">Discover</string>
     <string name="title_setting">Setting</string>
 
     <!-- END BOTTOM NAVIGATION VIEW -->
@@ -23,5 +23,7 @@
     <string name="img" translatable="false">Image manga</string>
     <string name="account_image">Account Image</string>
     <string name="error_img">Error image</string>
+    <string name="about">About</string>
+    <string name="created">Created by Shawn Modestine in 2020</string>
 
 </resources>

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/appearance">
-        <SwitchPreference android:key="switchNightPref"
+        <SwitchPreference
+            android:key="switchNightPref"
             android:id="@+id/nightMode"
             android:title="@string/NightThemePref"
             android:summaryOn="@string/textNightThemeDark"
-            android:summaryOff="@string/textNightThemeLight"/>
+            android:summaryOff="@string/textNightThemeLight" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:summary="0.8"
+            android:title="Version" />
+        <Preference
+            android:summary="@string/created"
+            android:title="@string/app_name" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
