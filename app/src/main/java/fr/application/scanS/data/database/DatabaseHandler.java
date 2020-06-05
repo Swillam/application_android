@@ -1,4 +1,4 @@
-package fr.application.scanS.data.DAO;
+package fr.application.scanS.data.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

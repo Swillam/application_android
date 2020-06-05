@@ -8,7 +8,6 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
@@ -16,19 +15,19 @@
             android:contentDescription="@string/account_image"
             android:src="@drawable/ic_account_circle_black_24dp" />
 
-    <!-- Transparent background line 23 -->
+    <!-- Transparent background line 22 -->
 
-        <Button
-            android:id="@+id/bt_setting"
-            android:background="?attr/selectableItemBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="?attr/ColorText"
-            android:gravity="center" />
+    <Button
+        android:id="@+id/bt_setting"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="?attr/ColorText"
+        android:gravity="center" />
 
-    <fragment android:name="fr.application.scanS.ui.settings.MySettingsFragment"
-        android:id="@+id/preferenceFrag"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/my_setting_fragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 

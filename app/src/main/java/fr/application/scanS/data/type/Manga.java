@@ -1,9 +1,9 @@
-package fr.application.scanS.data.Type;
+package fr.application.scanS.data.type;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import fr.application.scanS.data.DAO.MangaDAO;
+import fr.application.scanS.data.database.MangaDAO;
 
 public class Manga implements Serializable {
     private int id;

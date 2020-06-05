@@ -1,4 +1,4 @@
-package fr.application.scanS.data.DAO;
+package fr.application.scanS.data.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,7 @@ public abstract class DAOBase {
     private final static String NOM = "database.db";
 
     SQLiteDatabase mDb = null;
-    private DatabaseHandler mHandler;
+    private final DatabaseHandler mHandler;
 
     DAOBase(Context pContext) {
         this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
@@ -21,10 +21,6 @@ public abstract class DAOBase {
 
     public void close() {
         mDb.close();
-    }
-
-    public SQLiteDatabase getDb() {
-        return mDb;
     }
 
 }

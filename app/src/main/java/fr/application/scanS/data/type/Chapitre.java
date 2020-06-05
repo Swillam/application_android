@@ -1,10 +1,10 @@
-package fr.application.scanS.data.Type;
+package fr.application.scanS.data.type;
 
 import android.content.Context;
 
 import java.io.Serializable;
 
-import fr.application.scanS.data.DAO.ChapitreDAO;
+import fr.application.scanS.data.database.ChapitreDAO;
 
 public class Chapitre implements Serializable {
     private int id;

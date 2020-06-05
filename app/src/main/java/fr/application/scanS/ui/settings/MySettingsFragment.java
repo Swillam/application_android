@@ -7,6 +7,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
+import java.util.Objects;
+
 import fr.application.scanS.MainActivity;
 import fr.application.scanS.R;
 
@@ -17,11 +19,11 @@ public class MySettingsFragment extends PreferenceFragmentCompat
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preference, rootKey);
         SwitchPreference preference = (SwitchPreference) findPreference("switchNightPref");
-        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Objects.requireNonNull(preference).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference _preference) {
                 Intent i = new Intent(getContext(), MainActivity.class);
-                getActivity().finish();
+                requireActivity().finish();
                 startActivity(i);
                 return true;
             }

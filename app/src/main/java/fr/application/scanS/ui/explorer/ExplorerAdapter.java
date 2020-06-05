@@ -1,4 +1,4 @@
-package fr.application.scanS.ui.home;
+package fr.application.scanS.ui.explorer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,41 +14,38 @@ import fr.application.scanS.R;
 import fr.application.scanS.data.type.Manga;
 import fr.application.scanS.utils.MangaListener;
 
-
-public class MangaAdapter extends RecyclerView.Adapter<MangaViewHolder> {
-
+public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerViewHolder> {
     private final Context _context;
     private final ArrayList<Manga> _mangaList;
-    private final MangaListener mangaListener;
+    private final MangaListener _mangaListener;
 
 
-    public MangaAdapter(Context context, ArrayList<Manga> mangaList, MangaListener mangaListener) {
+    public ExplorerAdapter(Context context, ArrayList<Manga> mangaList, MangaListener mangaListener) {
         this._context = context;
         this._mangaList = mangaList;
-        this.mangaListener = mangaListener;
+        this._mangaListener = mangaListener;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public MangaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View cell = LayoutInflater.from(this._context).inflate(R.layout.content_cell_home, parent, false);
-        return new MangaViewHolder(cell, mangaListener);
+    public ExplorerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View cell = LayoutInflater.from(this._context).inflate(R.layout.content_cell_explorer, parent, false);
+        return new ExplorerViewHolder(cell, _mangaListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MangaViewHolder holder, int position) {
-        Manga m = this._mangaList.get(position);
-        holder.layoutForManga(m,this._context);
+    public void onBindViewHolder(@NonNull ExplorerViewHolder holder, int position) {
+
     }
+
 
     @Override
     public int getItemCount() {
         int itemCount = 0;
-        if (this._mangaList !=null){
+        if (this._mangaList != null) {
             itemCount = this._mangaList.size();
         }
         return itemCount;
     }
-
 }

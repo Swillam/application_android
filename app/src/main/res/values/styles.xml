@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="LightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#4CAF50</item>
@@ -12,6 +12,7 @@
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#039BE5</item>
         <item name="ColorText">#ffffff</item>
+        <item name="colorAccent">#5E35B1</item>
         <item name="metaTextColor">#aeaeae</item>
         <item name="ColorBackground">@color/appLoadBackground</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
@@ -22,13 +23,11 @@
         <item name="android:windowBackground">@drawable/app_loading</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:colorPrimaryDark">@android:color/transparent</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-
     </style>
 
-    <style name="PreferenceThemeOverlay.v14">
+    <style name="PreferenceThemeOverlay.v14" tools:ignore="PrivateResource">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
     </style>
 
 </resources>

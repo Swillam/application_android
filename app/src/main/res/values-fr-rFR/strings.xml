@@ -18,5 +18,6 @@
     <string name="error_img">"Erreur image "</string>
     <string name="about">À propos</string>
     <string name="created">Développer par Shawn Modestine en 2020</string>
+    <string name="account">Gestion du compte</string>
 
 </resources>

@@ -10,6 +10,8 @@ import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 import fr.application.scanS.ui.explorer.ExplorerFragment;
 import fr.application.scanS.ui.home.HomeFragment;
 import fr.application.scanS.ui.settings.SettingsFragment;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout,
-                        selectedFragment).commit();
+                        Objects.requireNonNull(selectedFragment)).commit();
                 return true;
             }
         });

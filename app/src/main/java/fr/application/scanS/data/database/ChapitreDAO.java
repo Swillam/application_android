@@ -1,4 +1,4 @@
-package fr.application.scanS.data.DAO;
+package fr.application.scanS.data.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 
-import fr.application.scanS.data.Type.Chapitre;
+import fr.application.scanS.data.type.Chapitre;
 
 public class ChapitreDAO extends DAOBase {
     private static final String TABLE_NAME = "Chapitre";

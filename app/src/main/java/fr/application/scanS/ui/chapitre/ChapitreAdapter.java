@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import fr.application.scanS.R;
-import fr.application.scanS.data.Type.Chapitre;
+import fr.application.scanS.data.type.Chapitre;
 
-public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.ChapitreViewHolder>{
+public class ChapitreAdapter extends RecyclerView.Adapter<ChapitreAdapter.ChapitreViewHolder> {
 
-    private Context _context;
-    private ArrayList<Chapitre> _listChapitre;
+    private final Context _context;
+    private final ArrayList<Chapitre> _listChapitre;
     private final Button _buttonFollow;
 
 
@@ -30,6 +30,7 @@ public class ChapitreAdapter extends RecyclerView.Adapter <ChapitreAdapter.Chapi
         this._buttonFollow = buttonFollow;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ChapitreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

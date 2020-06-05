@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
     android:background="@drawable/item_border">
 
     <TextView
@@ -12,8 +13,7 @@
         android:layout_weight="3"
         android:gravity="center"
         android:textSize="20sp"
-        android:textColor="?attr/ColorText"
-        android:background="@drawable/item_border" />
+        android:textColor="?attr/ColorText" />
 
     <TextView
         android:id="@+id/item_chapter_name_manga"
@@ -29,8 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:button="@xml/custom_checkbox"
-        android:gravity="center"
-        />
+        android:button="@xml/custom_checkbox" />
 
 </LinearLayout>

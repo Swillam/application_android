@@ -2,11 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/appearance">
         <SwitchPreference
+            android:background="#FFFFFF"
+            android:foregroundTint="#FFFFFF"
+            android:foregroundTintMode="add"
             android:key="switchNightPref"
-            android:id="@+id/nightMode"
-            android:title="@string/NightThemePref"
+            android:summaryOff="@string/textNightThemeLight"
             android:summaryOn="@string/textNightThemeDark"
-            android:summaryOff="@string/textNightThemeLight" />
+            android:theme="@style/DarkTheme"
+            android:title="@string/NightThemePref" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about">
         <Preference
