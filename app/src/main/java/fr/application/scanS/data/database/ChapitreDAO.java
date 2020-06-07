@@ -44,7 +44,6 @@ public class ChapitreDAO extends DAOBase {
         mDb.beginTransaction();
         try {
             for (Chapitre c : chapitres) {
-                c.setId_manga(id_manga);
                 add(c, id_manga);
             }
             mDb.setTransactionSuccessful();
@@ -76,7 +75,7 @@ public class ChapitreDAO extends DAOBase {
         int ifRead = c.getInt(3);
         int id_manga = c.getInt(4);
         c.close();
-        return new Chapitre(id,chapitre_nb,chapitre_name,ifRead,id_manga);
+        return new Chapitre(id, chapitre_nb, chapitre_name, ifRead);
     }
     public ArrayList<Chapitre> getAll(){
         Cursor c = mDb.rawQuery("select * from " + TABLE_NAME, null);
@@ -87,7 +86,7 @@ public class ChapitreDAO extends DAOBase {
             String chapitre_name = c.getString(2);
             int ifRead = c.getInt(3);
             int id_manga = c.getInt(4);
-            ListChapitre.add(new Chapitre(id,chapitre_nb,chapitre_name,ifRead,id_manga));
+            ListChapitre.add(new Chapitre(id, chapitre_nb, chapitre_name, ifRead));
         }
         c.close();
         return ListChapitre;
@@ -101,7 +100,7 @@ public class ChapitreDAO extends DAOBase {
             int chapitre_nb = c.getInt(1);
             String chapitre_name = c.getString(2);
             int ifRead = c.getInt(3);
-            ListChapitre.add(new Chapitre(id,chapitre_nb,chapitre_name,ifRead,id_manga));
+            ListChapitre.add(new Chapitre(id, chapitre_nb, chapitre_name, ifRead));
         }
         c.close();
         return ListChapitre;

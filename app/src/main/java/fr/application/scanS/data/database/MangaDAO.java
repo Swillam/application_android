@@ -57,31 +57,38 @@ public class MangaDAO extends DAOBase{
     }
 
     public Manga select(int id) {
-        Cursor c = mDb.rawQuery("select * from " + TABLE_NAME + " where id_manga = ?", new String[] {String.valueOf(id)});
-        c.moveToFirst();
-        String name_eng = c.getString(1);
-        String name_raw = c.getString(2);
-        String description = c.getString(3);
-        int in_progress = c.getInt(4);
-        String img_addr = c.getString(5);
-        c.close();
-        return new Manga(id,name_eng,name_raw,description,in_progress,img_addr);
-    }
-
-    public ArrayList<Manga> selectAll(){
-        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME , null);
-        ArrayList<Manga> ListManga = new ArrayList<>();
-        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            int id = c.getInt(0);
+        Cursor c = mDb.rawQuery("select * from " + TABLE_NAME + " where id_manga = ?", new String[]{String.valueOf(id)});
+        if (c.getCount() > 0) {
+            c.moveToFirst();
             String name_eng = c.getString(1);
             String name_raw = c.getString(2);
             String description = c.getString(3);
             int in_progress = c.getInt(4);
             String img_addr = c.getString(5);
-            ListManga.add(new Manga(id,name_eng,name_raw,description,in_progress,img_addr));
+            c.close();
+            return new Manga(name_eng, name_raw, description, in_progress, img_addr);
         }
         c.close();
-        return  ListManga;
+        return null;
+    }
+
+    public ArrayList<Manga> selectAll() {
+        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        ArrayList<Manga> ListManga = new ArrayList<>();
+        if (c.getCount() > 0) {
+            for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+                String name_eng = c.getString(1);
+                String name_raw = c.getString(2);
+                String description = c.getString(3);
+                int in_progress = c.getInt(4);
+                String img_addr = c.getString(5);
+                ListManga.add(new Manga(name_eng, name_raw, description, in_progress, img_addr));
+            }
+            c.close();
+            return ListManga;
+        }
+        c.close();
+        return new ArrayList<>();
     }
 
     public int getIdManga(String name_raw) {

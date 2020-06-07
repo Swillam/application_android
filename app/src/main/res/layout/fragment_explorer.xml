@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.explorer.ExplorerFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_explorer_recycler_view"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
-</RelativeLayout>
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:paddingEnd="20dp"
+        android:text="Hot"
+        android:textColor="?attr/ColorText"
+        android:textSize="30sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_explorer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <ProgressBar
+            android:id="@+id/load_explorer_hot"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</LinearLayout>

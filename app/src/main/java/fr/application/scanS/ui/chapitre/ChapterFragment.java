@@ -1,6 +1,6 @@
 package fr.application.scanS.ui.chapitre;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
 import java.util.Objects;
 
 import fr.application.scanS.R;
@@ -45,6 +44,9 @@ public class ChapterFragment extends Fragment {
         TextView titre = root.findViewById(R.id.titre_manga_textview);
         titre.setText(manga.getName());
         ImageView img = root.findViewById(R.id.manga_image);
+        Bundle bundle = this.getArguments();
+        if (bundle != null)
+            img.setImageBitmap((Bitmap) bundle.getParcelable("image"));
         followBt = root.findViewById(R.id.bt_follow);
 
         // if the manga is in the db show unfollow button
@@ -55,16 +57,6 @@ public class ChapterFragment extends Fragment {
             followBt.setText(getResources().getText(R.string.unfollow));
         }
         mangaDAO.close();
-
-        // get img
-        if (manga.getImg_addr() != null) {
-            Uri uri = Uri.parse(manga.getImg_addr());
-            File imgFile = new File(Objects.requireNonNull(uri.getPath()));
-            if (imgFile.exists()) { // if no cache failure
-                img.setImageURI(Uri.parse(manga.getImg_addr()));
-            }
-
-        }
 
         // set ongoing or finished status
         TextView ongoing = root.findViewById(R.id.onGoing);

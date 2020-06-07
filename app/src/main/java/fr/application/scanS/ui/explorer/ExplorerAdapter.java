@@ -31,12 +31,13 @@ public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerViewHolder> {
     @Override
     public ExplorerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View cell = LayoutInflater.from(this._context).inflate(R.layout.content_cell_explorer, parent, false);
-        return new ExplorerViewHolder(cell, _mangaListener);
+        return new ExplorerViewHolder(cell, _mangaListener, _context);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExplorerViewHolder holder, int position) {
-
+        Manga m = this._mangaList.get(position);
+        holder.layoutForMangaExplorer(m);
     }
 
 
@@ -47,5 +48,10 @@ public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerViewHolder> {
             itemCount = this._mangaList.size();
         }
         return itemCount;
+    }
+
+    public void addItem(Manga manga) {
+        this._mangaList.add(manga);
+        notifyDataSetChanged();
     }
 }

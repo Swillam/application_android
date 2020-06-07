@@ -1,9 +1,11 @@
 package fr.application.scanS.ui.home;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -45,10 +47,11 @@ public class HomeFragment extends Fragment implements MangaListener {
         new AsyncTaskLoad(this).execute();
     }
 
-    public void OnMangaListener(int position) {
+    public void OnMangaListener(int position, ImageView img) {
         Fragment fragment = new ChapterFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("manga", listManga.get(position));
+        bundle.putParcelable("image", ((BitmapDrawable) img.getDrawable()).getBitmap());
         fragment.setArguments(bundle);
         requireActivity().getSupportFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)// transition between home and manga

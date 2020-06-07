@@ -48,7 +48,7 @@ public class MangaViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View v) {
-        mangaListener.OnMangaListener(getAdapterPosition());
+        mangaListener.OnMangaListener(getAdapterPosition(), _img);
     }
 
 

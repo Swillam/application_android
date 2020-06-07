@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.URL;
-import java.text.Normalizer;
 import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -78,7 +77,7 @@ public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
 
     private Uri download(Manga m) throws IOException {
         // download img
-        String name = format(m.getName_raw());
+        String name = API_url.format(m.getName_raw());
         String imgUrl = this.img_url + name + ".jpg";
         URL url = new URL(imgUrl);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -105,14 +104,5 @@ public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
         mangaDAO.modify(m);
         mangaDAO.close();
         return uri;
-    }
-
-    // remove accent, the escape and lower letters
-    String format(String string) {
-        string = Normalizer.normalize(string, Normalizer.Form.NFD);
-        string = string.replaceAll("[^\\p{ASCII}]", "");
-        string = string.replace(" ", "_");
-        string = string.toLowerCase();
-        return string;
     }
 }

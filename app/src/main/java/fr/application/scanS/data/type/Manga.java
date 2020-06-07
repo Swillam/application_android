@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import fr.application.scanS.data.database.MangaDAO;
 
 public class Manga implements Serializable {
-    private int id;
     private String name_eng;
     private String name_raw;
     private String description;
@@ -24,9 +23,8 @@ public class Manga implements Serializable {
         this.in_progress = in_progress;
     }
 
-    public Manga(int id, String name_eng, String name_raw, String description, int in_progress, String img_addr) {
-        this.id = id;
-        this.name_eng = name_eng;
+    public Manga(String name_eng, String name_raw, String description, int in_progress, String img_addr) {
+        this.name_eng = name_eng == null || name_eng.equals("null") ? null : name_eng;
         this.name_raw = name_raw;
         this.description = description;
         this.in_progress = in_progress;
@@ -34,13 +32,9 @@ public class Manga implements Serializable {
     }
 
     public int getId(MangaDAO mangaDAO) {
-        id = mangaDAO.getIdManga(name_raw);
-        return id;
+        return mangaDAO.getIdManga(name_raw);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName_eng() {
         return name_eng;
