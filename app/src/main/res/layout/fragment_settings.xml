@@ -28,7 +28,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/my_setting_fragment"
-        android:name="fr.application.scanS.ui.settings.MySettingsFragment"
+        android:name="fr.application.Lyscan.ui.settings.MySettingsFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 

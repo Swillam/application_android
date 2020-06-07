@@ -7,24 +7,27 @@
     tools:context=".ui.explorer.ExplorerFragment">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="right"
+
+        android:layout_gravity="end"
         android:paddingEnd="20dp"
+        android:background="?attr/metaTextColor"
         android:text="Hot"
+        android:paddingStart="20dp"
         android:textColor="?attr/ColorText"
         android:textSize="30sp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/metaTextColor">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_explorer_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:layout_margin="10dp" />
 
         <ProgressBar
             android:id="@+id/load_explorer_hot"

@@ -13,7 +13,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about">
         <Preference
-            android:summary="0.1"
+            android:summary="1.0"
             android:title="Version" />
         <Preference
             android:summary="@string/created"
