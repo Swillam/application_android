@@ -25,8 +25,6 @@ import fr.application.Lyscan.data.type.Manga;
 import fr.application.Lyscan.utils.API_url;
 import fr.application.Lyscan.utils.MangaListener;
 
-import static fr.application.Lyscan.utils.API_url.url;
-
 public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerAdapter.ExplorerViewHolder> {
     private final Context _context;
     private final ArrayList<Manga> _mangaList;
@@ -89,7 +87,10 @@ public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerAdapter.Explor
 
         void layoutForMangaExplorer(Manga m) {
             this._title.setText(m.getName());
-            ImageRequest request = new ImageRequest(url + "image.php?image=" + API_url.format(m.getName_raw()) + ".jpg",
+
+            // get the manga picture from my web serveur
+
+            ImageRequest request = new ImageRequest(API_url.url_img + API_url.format(m.getName_raw()) + ".jpg",
                     new Response.Listener<Bitmap>() {
                         @Override
                         public void onResponse(Bitmap bitmap) {
@@ -104,7 +105,7 @@ public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerAdapter.Explor
                                 }
                             });
                         }
-                    }, 0, 0, null,
+                    }, 0, 0, ImageView.ScaleType.CENTER_INSIDE, null,
                     new Response.ErrorListener() {
                         public void onErrorResponse(VolleyError error) {
                             _loading.setVisibility(View.INVISIBLE);

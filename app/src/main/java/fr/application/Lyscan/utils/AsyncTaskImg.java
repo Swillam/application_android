@@ -11,10 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Objects;
@@ -25,9 +23,10 @@ import fr.application.Lyscan.R;
 import fr.application.Lyscan.data.database.MangaDAO;
 import fr.application.Lyscan.data.type.Manga;
 
+// load the manga img
+
 public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
 
-    private final String img_url = API_url.url + "image.php?image=";
     private final WeakReference<Context> _context;
     private final WeakReference<ImageView> _img;
     private final WeakReference<ProgressBar> _loadimg;
@@ -78,7 +77,7 @@ public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
     private Uri download(Manga m) throws IOException {
         // download img
         String name = API_url.format(m.getName_raw());
-        String imgUrl = this.img_url + name + ".jpg";
+        String imgUrl = API_url.url_img + name + ".jpg";
         URL url = new URL(imgUrl);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setDoInput(true);
@@ -87,22 +86,16 @@ public class AsyncTaskImg extends AsyncTask<Manga, Void, Uri> {
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
         // save img
-        Context context = this._context.get();
-        File cache = context.getCacheDir();
-        OutputStream fOut;
-        File img = new File(cache, name + ".jpg");
-        fOut = new FileOutputStream(img);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
-        fOut.flush();
-        fOut.close();
+        Uri uri = new SaveImg().saveimg(_context.get(), name, bitmap);
+        if (uri != null) {
+            m.setImg_addr(uri.toString());
 
-        // save the uri to the db
-        Uri uri = Uri.fromFile(img);
-        m.setImg_addr(uri.toString());
-        MangaDAO mangaDAO = new MangaDAO(context);
-        mangaDAO.open();
-        mangaDAO.modify(m);
-        mangaDAO.close();
+            // save the uri to the db
+            MangaDAO mangaDAO = new MangaDAO(_context.get());
+            mangaDAO.open();
+            mangaDAO.modify(m);
+            mangaDAO.close();
+        }
         return uri;
     }
 }

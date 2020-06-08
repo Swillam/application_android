@@ -67,15 +67,15 @@ public class ExplorerFragment extends Fragment implements MangaListener {
         if (listManga.isEmpty()) {
             listManga = new ArrayList<>();
             requestqueue = Volley.newRequestQueue(requireContext());
-            parseJson();
+            getMangaFromJson();
         } else loading.setVisibility(View.INVISIBLE);
 
     }
 
-    private void parseJson() {
-        String url_json = API_url.url + "json.php";
+    // download json data from my web server
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url_json, null, new Response.Listener<JSONArray>() {
+    private void getMangaFromJson() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_url.url_json, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {

@@ -2,6 +2,8 @@ package fr.application.Lyscan.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
@@ -12,14 +14,18 @@ import fr.application.Lyscan.data.database.DAOBase;
 import fr.application.Lyscan.data.database.MangaDAO;
 import fr.application.Lyscan.data.type.Manga;
 
+// save the manga in the database
+
 public class AsyncTaskDB extends AsyncTask<DAOBase, Void, Void> {
     private final WeakReference<Context> _context;
-    private final Manga manga;
+    private final Manga _manga;
     private ProgressDialog progressDialog;
+    private final Bitmap _bitmap;
 
-    public AsyncTaskDB(Context context, Manga manga) {
+    public AsyncTaskDB(Context context, Manga manga, Bitmap bitmap) {
         this._context = new WeakReference<>(context);
-        this.manga = manga;
+        this._manga = manga;
+        this._bitmap = bitmap;
     }
 
     @Override
@@ -36,15 +42,19 @@ public class AsyncTaskDB extends AsyncTask<DAOBase, Void, Void> {
 
     @Override
     protected Void doInBackground(DAOBase... db) {
+        // img save
+        String name = API_url.format(_manga.getName_raw());
+        Uri uri = new SaveImg().saveimg(_context.get(), name, _bitmap);
+        if (uri != null) _manga.setImg_addr(uri.toString());
         MangaDAO mangaDAO = (MangaDAO) db[0];
         mangaDAO.open();
-        mangaDAO.add(manga);
-        int id_manga = manga.getId(mangaDAO);
+        mangaDAO.add(_manga);
+        int id_manga = _manga.getId(mangaDAO);
         mangaDAO.close();
 
         ChapitreDAO chapitreDAO = (ChapitreDAO) db[1];
         chapitreDAO.open();
-        chapitreDAO.add(manga.getChapitres(), id_manga);
+        chapitreDAO.add(_manga.getChapitres(), id_manga);
         chapitreDAO.close();
         return null;
     }

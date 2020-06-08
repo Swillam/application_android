@@ -1,6 +1,7 @@
 package fr.application.Lyscan.ui.chapitre;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class ChapterFragment extends Fragment {
     private Manga manga;
     private Button followBt;
     private RecyclerView recyclerView;
+    private ImageView img;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class ChapterFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_chapter, container, false);
         TextView titre = root.findViewById(R.id.titre_manga_textview);
         titre.setText(manga.getName());
-        ImageView img = root.findViewById(R.id.manga_image);
+        img = root.findViewById(R.id.manga_image);
         Bundle bundle = this.getArguments();
         if (bundle != null)
             img.setImageBitmap((Bitmap) bundle.getParcelable("image"));
@@ -82,7 +84,7 @@ public class ChapterFragment extends Fragment {
 
                 // add the manga to the db with its chapter for followed situation
                 if (followBt.getText().toString().equals(getResources().getString(R.string.follow))) {
-                    AsyncTaskDB asyncTaskDB = new AsyncTaskDB(getContext(), manga);
+                    AsyncTaskDB asyncTaskDB = new AsyncTaskDB(getContext(), manga, ((BitmapDrawable) img.getDrawable()).getBitmap());
                     asyncTaskDB.execute(new MangaDAO(getContext()), new ChapitreDAO(getContext()));
                     followBt.setBackgroundColor(getResources().getColor(R.color.unfollow));
                     followBt.setText(getResources().getText(R.string.unfollow));

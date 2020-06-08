@@ -3,7 +3,10 @@ package fr.application.Lyscan.utils;
 import java.text.Normalizer;
 
 public class API_url {
-    public static final String url = "https://lyscanapp-11e6bb5b.localhost.run/";
+
+    public static final String url = "https://lyscan.tunnel.staqlab.com/";
+    public static final String url_img = url + "image.php?image=";
+    public static final String url_json = url + "json.php";
 
     // remove accent, the escape and lower letters
     public static String format(String string) {

@@ -85,7 +85,6 @@ public class ChapitreDAO extends DAOBase {
             int chapitre_nb = c.getInt(1);
             String chapitre_name = c.getString(2);
             int ifRead = c.getInt(3);
-            int id_manga = c.getInt(4);
             ListChapitre.add(new Chapitre(id, chapitre_nb, chapitre_name, ifRead));
         }
         c.close();
