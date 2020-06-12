@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.explorer.ExplorerFragment">
+    tools:context="fr.application.lyscan.ui.explorer.ExplorerFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:layout_gravity="end"
         android:paddingEnd="20dp"
         android:background="?attr/metaTextColor"
-        android:text="Hot"
+        android:text="@string/hot"
         android:paddingStart="20dp"
         android:textColor="?attr/ColorText"
         android:textSize="30sp" />

@@ -26,5 +26,6 @@
     <string name="about">About</string>
     <string name="created">Created by Shawn Modestine in 2020</string>
     <string name="account">Account setting</string>
+    <string name="hot" translatable="false">Hot</string>
 
 </resources>
